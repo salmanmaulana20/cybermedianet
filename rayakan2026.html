@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perayaan Tahun Baru 2026 - PT Cybbermedia Network Nusantara</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #0b0d17; /* Warna luar angkasa */
+            font-family: 'Arial Black', sans-serif;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #logo {
+            width: 150px; /* Sesuaikan ukuran logo */
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+        }
+
+        #instansi {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #pesan {
+            font-size: 4rem;
+            margin: 0;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 0 10px #fff, 0 0 20px #f0f, 0 0 30px #0ff;
+        }
+
+        #logo.muncul, #instansi.muncul, #pesan.muncul {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        button {
+            padding: 20px 50px;
+            font-size: 24px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            z-index: 20;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+        }
+
+        button.sembunyi {
+            display: none;
+        }
+
+        /* Responsif untuk mobile */
+        @media (max-width: 600px) {
+            #pesan { font-size: 2.5rem; }
+            #instansi { font-size: 1rem; }
+            #logo { width: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btn" onclick="rayakan()">MULAI PERAYAAN! 🎆</button>
+
+    <div class="container">
+        <img src="logo_panjang.png" id="logo" alt="Logo PT Cybbermedia Network Nusantara">
+        <div id="instansi">Keluarga Besar PT Cybbermedia Network Nusantara Mengucapkan</div>
+        <h1 id="pesan">🎊 SELAMAT TAHUN BARU 2026! 🎆</h1>
+    </div>
+
+    <script>
+        function rayakan() {
+            // Sembunyikan tombol
+            document.getElementById('btn').classList.add('sembunyi');
+            
+            // Tampilkan elemen dengan animasi
+            const logo = document.getElementById('logo');
+            const instansi = document.getElementById('instansi');
+            const pesan = document.getElementById('pesan');
+            
+            logo.classList.add('muncul');
+            instansi.classList.add('muncul');
+            
+            // Delay sedikit untuk pesan utama agar terasa lebih dramatis
+            setTimeout(() => {
+                pesan.classList.add('muncul');
+            }, 500);
+
+            // Efek Kembang Api
+            var duration = 10 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              var particleCount = 50 * (timeLeft / duration);
+              
+              // Kembang api muncul di posisi acak
+              confetti(Object.assign({}, defaults, { 
+                particleCount, 
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+              }));
+              confetti(Object.assign({}, defaults, { 
+                particleCount, 
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+              }));
+            }, 250);
+        }
+    </script>
+
+</body>
+</html>
